@@ -480,7 +480,7 @@
         এখানে আপনার পছন্দের অ্যাড নেটওয়ার্কের দেওয়া <script> ট্যাগটি বসাতে হবে।
         নিচের লাইনটি একটি উদাহরণ মাত্র। আপনি এটিকে পরিবর্তন করে আপনার নিজের কোড বসাবেন।
     -->
-    <script src='//libtl.com/sdk.js' data-zone='9702412' data-sdk='show_9702412'></script>
+    <script src='//libtl.com/sdk.js' data-zone='10123712' data-sdk='show_10123712'></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -593,10 +593,12 @@
                 // --- অ্যাড নেটওয়ার্কের কোড কল করার জায়গা (দ্বিতীয় অংশ) ---
                 // ======================================================================
                 // এখানে আপনার অ্যাড নেটওয়ার্কের দেওয়া ফাংশনটি কল করতে হবে।
-                // নিচের 'show_9702412()' লাইনটি একটি উদাহরণ।
+                // নিচের 'show_10123712()' লাইনটি একটি উদাহরণ।
                 // ======================================================================
-                if (typeof show_9702412 === 'function') {
-                    show_9702412().then(() => {
+                if (typeof show_10123712 === 'function') {
+                    show_10123712('pop').then(() => {
+                        // user watch ad till the end or close it in interstitial format
+                        // your code to reward user for rewarded format
                         let earnings = parseFloat(localStorage.getItem('earnings')) + AD_REWARD;
                         let currentAdsWatched = parseInt(localStorage.getItem('adsWatched')) + 1;
                         
@@ -604,8 +606,10 @@
                         localStorage.setItem('adsWatched', currentAdsWatched.toString());
                         
                         tg.showAlert(`বিজ্ঞাপনটি দেখার জন্য আপনি BDT ${AD_REWARD.toFixed(2)} পেয়েছেন!`);
-                    }).catch(() => {
-                        tg.showAlert('বিজ্ঞাপনটি দেখাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    }).catch(e => {
+                        // user get error during playing ad
+                        // do nothing or whatever you want
+                        tg.showAlert('বিজ্ঞাপনটি দেখাতে সমস্যা হয়েছে অথবা আপনি এটি বন্ধ করেছেন।');
                     }).finally(() => {
                         updateUI();
                     });
